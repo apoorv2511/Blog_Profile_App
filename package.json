@@ -21,10 +21,7 @@
     "morgan": "~1.7.0",
     "multer": "^1.2.1",
     "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
-    "passport-google-oauth": "^1.0.0",
-    "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "bson" : "~1.0.1"
   }
 }
