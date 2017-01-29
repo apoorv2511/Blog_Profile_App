@@ -23,7 +23,8 @@ var index = require('./routes/index.js');
 //var configdb = require('./config/database.js');
 
 //configuration
-mongoose.connect('mongodb://localhost:27017/login');
+var url = process.env.MONGO_URI;
+mongoose.connect(url);
 mongoose.connection.on('connected',function(){
   console.log('mongoose connected');
 });
