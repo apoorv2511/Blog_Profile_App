@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title>Profile</title>
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+
+    $(document).ready(function() {
+    $(".btn-pref .btn").click(function () {
+      $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+      // $(".tab").addClass("active"); // instead of this do the below 
+      $(this).removeClass("btn-default").addClass("btn-primary");   
+    });
+    });
+    
+</script>
+
+  </head>
+  
+  <body>
+    
+    <div class="container-fluid">
+  	 <div class="col-lg-12 col-sm-12">
+        <div class="card hovercard">
+          <div class="card-background">
+            <!--<img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">-->
+            <img class="card-bkimg" alt="" src="images/background1.jpg">
+          </div>
+          <div class="useravatar">
+            <img alt="" src="/getpic/<%= user.photoname %>">
+          </div>
+          <div class="card-info"> <span class="card-title"><%= user.name %></span></div>
+        </div>
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs" style="font-size:1.2em;">About me</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <div class="hidden-xs" style="font-size:1.2em;">Blogs</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <div class="hidden-xs" style="font-size:1.2em;">Following</div>
+            </button>
+        </div>
+    </div>
+
+        <div class="well">
+      <div class="tab-content">
+
+<!--This is TAB 1-->      
+        <div class="tab-pane fade in active" id="tab1">
+          <!--*********************-->
+            <div class="row">       
+        		<div class="col-sm-6">
+            		<div class="well">
+                		<h3><span class="fa fa-user"></span> Local</h3>
+                    	<p>
+                        	<strong>Name</strong>: <%= user.name %><br>
+                        	<strong>email</strong>: <%= user.email %><br>
+                        	<strong>password</strong>: <%= user.password %><br>
+                        	<strong>admin</strong>: <%= user.admin %><br>                        	
+                        	<strong>Photo file name: </strong>: <%= user.photoname %>
+                        	<a href="/logout" class="btn btn-primary btn-sm" style="float:right;margin:right:7px;">Logout</a>
+
+                        	<a href="/api/user_details/<%= user._id %>" class="btn btn-primary btn-sm" style="float:right;">Update</a>
+  		                </p>	
+            		</div>
+        		</div>
+    		</div>
+          <!--*********************-->
+        </div>
+
+<!--This is TAB 2-->        
+        <div class="tab-pane fade in" id="tab2">
+          <!--*********************-->
+       <a href="/blog" class="btn btn-primary" role="button">Want to write a Blog ?</a><br><br>
+
+          <%for(i = 0;i< blogs.length;i++){%>
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                <div>
+                <h3><%= blogs[i].heading %></h3>
+                </div>
+                <hr>
+                <p id="read_more"><%= blogs[i].desc %></p>
+                <p><a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#<%= "mymodal" + i %>">Read More</a></p>
+                </div>       
+                <div class="<%= "blog" + i %>" id="date_create" style="font-weight: bold; font-style: italic;">
+                  <%= blogs[i].created_at %>
+                </div>
+                <script>
+                  console.log("created at" + <%= i %>);
+                </script>
+            </div>
+            <script>
+              $(document).ready(function(){
+                var data = $(".<%= "blog"+ i %>").text();
+                data1 = data.split(" ");
+                $(".<%= "blog"+ i %>").html("Created on " + data1[18] + ", " +data1[20] + " " + data1[19] + " " + data1[21]);
+              }); 
+            </script>
+
+
+          
+
+          <!-- Modal -->
+<div class="modal fade" id="<%= "mymodal" + i %>" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4><%= blogs[i].heading %></h4>
+      </div>
+      <div class="modal-body">
+        <%= blogs[i].desc %>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+          <span class="glyphicon glyphicon-remove"></span> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<style>
+/* Add a dark gray background color to the modal header and center text */
+.modal-header, h4, .close {
+    background-color: #333;
+    color: #fff !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-header, .modal-body {
+    padding: 40px 50px;
+}
+</style>
+
+
+
+
+        <%}%>
+
+
+          <!--*********************-->  
+        </div>
+
+<!--This is TAB 3--> 
+       
+        <div class="tab-pane fade in" id="tab3">
+          <!--*********************-->
+        <div class="row">  
+          <div class="cols-sm-6 cols-md-3">          
+                    
+                    <div class="card text-center">
+            <div class="card-header">
+            </div>
+            <div class="card-block">
+              <h4>yet to be created</h4>
+              
+            </div>
+            <div class="card-footer text-muted">
+             
+            </div>
+          </div>
+          
+          </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+        </div>
+    
+      </div>    
+    </div>  
+  </body>
+
+ <style>
+/* Add a dark gray background color to the modal header and center text */
+.modal-header, h4, .close {
+    background-color: #333;
+    color: #fff !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-header, .modal-body {
+    padding: 40px 50px;
+}
+ 	/* USER PROFILE PAGE */
+ 	#read_more{
+ 	margin:20px;
+ 	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	margin : 20px 0 20px 0;
+ 	}
+ body{
+ 	margin:0;
+ 	padding:0;
+ }	
+ .container-fluid{
+ 	padding:0;
+ }
+ .col-lg-12, .col-sm-12{
+ 	padding:0;
+ }
+ .card {
+    margin-top: 20px;
+    padding: 30px;
+    background-color: rgba(214, 224, 226, 0.2);
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    box-sizing: border-box;
+}
+.card.hovercard {
+	margin-top: 0;
+    position: relative;
+    padding-top: 0;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 1);
+}
+.card.hovercard .card-background {
+    height: 200px;
+}
+.card-background img {
+    filter: blur(25px);
+    margin-left: -100px;
+    margin-top: -200px;
+    min-width: 130%;
+}
+.card.hovercard .useravatar {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .useravatar img {
+    width: 160px;
+    height: 160px;
+    max-width: 160px;
+    max-height: 160px;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+}
+.card.hovercard .card-info {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .card-info .card-title {
+    padding:0 5px;
+    font-size: 25px;
+    line-height: 1;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+.card.hovercard .card-info {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: #737373;
+    text-overflow: ellipsis;
+}
+.card.hovercard .bottom {
+    padding: 0 20px;
+    margin-bottom: 17px;
+}
+.btn-pref .btn {
+    -webkit-border-radius:0;
+}
+</style>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</html>

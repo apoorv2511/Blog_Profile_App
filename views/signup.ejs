@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+
+    <title>Signup</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="javascript" src="js/jquery.min.js">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  
+  </head>
+
+    <body>
+	   <div class="container">
+
+            <div class="col-sm-6 col-sm-offset-3">
+
+                <h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+                <!-- show any messages that come back with authentication -->
+                <% if (message.length > 0) { %>
+                    <div class="alert alert-danger"><%= message %></div>
+                <% } %>
+
+                <!-- LOGIN FORM -->
+                <form action = "/signup" method = "post" enctype = "multipart/form-data">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact No.</label>
+                        <input type="number" class="form-control" name="mob_no">
+                    </div>
+                    <div class="form-group">
+                        <label>Are you Admin ?</label>
+                        <input type="text" class="form-control" name="admin">
+                    </div>
+                    
+                    <label>Photo Upload</label>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <input type="file" name="userphoto" id="user_photo">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+
+                </form>
+
+                <hr>
+
+                <p>Already have an account? <a href="/login">Login</a></p>
+                <p>Or go <a href="/">home</a>.</p>
+
+            </div>
+
+        </div>
+    
+    </body>
+
+<style>
+    body{
+        padding-top:40px;
+    }
+</style>
+
+</html>    
